@@ -1,0 +1,108 @@
+package controllers;
+
+import models.Departamento;
+import models.Empleado;
+import dao.departamento.DaoDepartamento;
+import dao.empleado.DaoEmpleado;
+
+import java.util.List;
+import java.util.logging.Logger;
+
+public class EmpresaController {
+    private final Logger logger = Logger.getLogger(EmpresaController.class.getName());
+
+    // Mis dependencias
+    private final DaoDepartamento departamentoDao;
+    private final DaoEmpleado empleadoDao;
+    
+    public EmpresaController(DaoDepartamento departamentoDao, DaoEmpleado empleadoDao) {
+        this.departamentoDao = departamentoDao;
+        this.empleadoDao = empleadoDao;
+    }
+    
+    
+    
+    
+ // ======================================| DEPARTAMENTO |======================================
+    public List<Departamento> getDepartamentos() {
+        logger.info("Obteniendo Departamento");
+        return departamentoDao.listar();
+    }
+
+    public Departamento createDepartamento(Departamento departamento) {
+        logger.info("Creando Departamento");
+        return departamentoDao.save(departamento);
+    }
+
+    public Departamento updateDepartamento(Departamento departamento) {
+        logger.info("Actualizando Departamento con uuid: " + departamento.getId());
+        return departamentoDao.save(departamento);
+    }
+
+    public Boolean deleteDepartamento(Departamento departamento) {
+        logger.info("Eliminando Departamento con uuid: " + departamento.getId());
+        return departamentoDao.delete(departamento);
+    }
+    // ==========================================================================================
+
+    // ======================================| EMPLEADO |======================================
+    public List<Empleado> getEmpleados() {
+        logger.info("Obteniendo Empleados");
+        return empleadoDao.listar();
+    }
+
+    public Empleado createEmpleado(Empleado empleado) {
+        logger.info("Creando Empleados");
+        return empleadoDao.save(empleado);
+    }
+
+    public Empleado updateEmpleado(Empleado empleado) {
+        logger.info("Actualizando Empleados con uuid: " + empleado.getId());
+        return empleadoDao.save(empleado);
+    }
+
+    public Boolean deleteEmpleado(Empleado empleado) {
+        logger.info("Eliminando Empleados con uuid: " + empleado.getId());
+        return empleadoDao.delete(empleado);
+    }
+ // ==========================================================================================
+
+ // ======================================| PROYECTO |======================================
+//    public List<Proyecto> getProyectos() {
+//        logger.info("Obteniendo Proyectos");
+//        return proyectoDao.listar();
+//    }
+//
+//    public Proyecto createRaqueta(Proyecto proyecto) {
+//        logger.info("Creando Raqueta");
+//        return proyectoDao.save(proyecto);
+//    }
+//
+//    public Proyecto updateRaqueta(Proyecto proyecto) {
+//        logger.info("Actualizando Raqueta con uuid: " + proyecto.getId());
+//        return proyectoDao.save(proyecto);
+//    }
+//
+//    public Boolean deleteRaqueta(Proyecto proyecto) {
+//        logger.info("Eliminando Raqueta con uuid: " + proyecto.getId());
+//        return proyectoDao.delete(proyecto);
+//    }
+// ==========================================================================================
+
+}
+
+
+//public Optional<Tenista> getTenistaById(UUID uuid) {
+//logger.info("Obteniendo Tenista con uuid: " + uuid);
+//return tenistasRepository.findById(uuid);
+//}
+
+//public Optional<Raqueta> getRaquetaById(UUID uuid) {
+//logger.info("Obteniendo Raqueta con uuid: " + uuid);
+//return raquetasRepository.findById(uuid);
+//}
+
+//public Optional<Tenista> getTenistaById(UUID uuid) {
+//logger.info("Obteniendo Tenista con uuid: " + uuid);
+//return tenistasRepository.findById(uuid);
+//}

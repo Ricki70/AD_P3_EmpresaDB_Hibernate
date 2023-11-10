@@ -1,0 +1,2 @@
+INSERT INTO departamento (id, nombre) VALUES ('8dea4e79-1000-4b39-b83d-134a8da640dd', 'Finanzas'), ('5475cf56-caf3-4e59-9141-8af91149efa6', 'Linux'), ('55e4a1f9-d189-4f54-aae8-22b663a7a937', 'Ventas');
+INSERT INTO empleado (id, nombre, salario) VALUES ('ea0dc550-08e9-4727-a797-0753c7794429', 'Ana Arias', NULL), ('7af1e9cd-3347-49ae-a19a-eb101927c989', 'Luis Leiva', '1234.56'), ('aeb53f7a-3753-4bf8-b2b4-f3664a33acf5', 'Milena Mira', NULL);
