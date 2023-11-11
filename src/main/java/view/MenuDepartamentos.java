@@ -2,15 +2,17 @@ package view;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import IO.IO;
 import constantes.color.Colores;
 import controllers.EmpresaController;
+import models.Empleado;
 import models.Departamento;
 
 public class MenuDepartamentos {
-	public static void mostrarMenu(EmpresaController controller ) {
+	public static void mostrarMenu(EmpresaController controller) {
 
 		List<String> opciones = List.of("\n ======|MENU DEPARTAMENTOS|=====\n", "| 1.- Listar Departamentos	|\n",
 				"| 2.- Agregar Departamento	|\n", "| 3.- Modificar Departamento    |\n",
@@ -25,7 +27,7 @@ public class MenuDepartamentos {
 				listarDepartamentos(controller);
 				break;
 			case 2:
-				insertDepartamento();
+				insertDepartamento(controller);
 				break;
 			case 3:
 				updateDepartamento();
@@ -42,20 +44,40 @@ public class MenuDepartamentos {
 		}
 	}
 
+	/**
+	 * Método para listar los departamentos al usuario.
+	 * 
+	 * @param controller
+	 */
 	private static void listarDepartamentos(EmpresaController controller) {
-
-		
-		
-		// Obtenemos todos los tenistas
+		// Obtenemos todos los departamentos
 		List<Departamento> departamentos = controller.getDepartamentos().stream()
                 .sorted(Comparator.comparing(Departamento::getNombre))
                 .collect(Collectors.toList());
+		// Mostramos todos los departamentos
 		String format = "[ %-36s ][ %-20s ][ %-55s ]";
 		System.out.println(String.format(format, "ID", "NOMBRE", "JEFE"));
         departamentos.forEach(System.out::println);
 	}
 
-	private static void insertDepartamento() {
+	/**
+	 * Método para solicitar campos de un departamento e insertarlo en la base de datos.
+	 * 
+	 * @param controller
+	 */
+	private static void insertDepartamento(EmpresaController controller) {
+		// Obtenemos los datos del departamento que se quiere insertar
+		String nombre = IO.readString("Nombre ? ");
+		UUID jefe = IO.readUUIDOptional("Jefe ? ");
+
+		// Creamos el departamento y lo insertamos
+		Departamento departamento = new Departamento(nombre, new Empleado(jefe));
+				
+		// Comprobamos si se ha insertado el registro y damos feedback
+		IO.println(controller.createDepartamento(departamento) ? "Insertado correctamente" :
+				Colores.ROJO 
+				+ "No se ha encontrado un empleado con el ID introducido" 
+				+ Colores.RESET);
 	}
 
 	private static void updateDepartamento() {

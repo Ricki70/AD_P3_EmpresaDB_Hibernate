@@ -22,8 +22,7 @@ public class MenuPrincipal {
     );
     
 	public static void main(String[] args) {	
-		
-		// iniciamos las tablas de la base de datos
+		// Iniciamos la base de datos
 		initDataBase();
 		
 		List<String> opciones = List.of( 
@@ -37,8 +36,7 @@ public class MenuPrincipal {
 
 		while (true) {
 			opciones.stream().forEach(System.out :: print);
-			IO.print("\nIntroduce tu elección: ");
-			switch (IO.readInt()) {
+			switch (IO.readInt("\nIntroduce tu elección: ")) {
 				case 1:  // menú departamentos
 					MenuDepartamentos.mostrarMenu(controller);
 					break;
@@ -53,17 +51,11 @@ public class MenuPrincipal {
 					IO.println(Colores.ROJO + "Opción no válida" + Colores.RESET);
 			}
 		}
-
 	}
 	
 	private static void initDataBase() {
-		
         HibernateManager hb = HibernateManager.getInstance();
-
         hb.open();
-
         hb.close();
     }
-	
-
 }

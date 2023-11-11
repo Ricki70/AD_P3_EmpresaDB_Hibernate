@@ -47,11 +47,11 @@ public class MenuEmpleados {
 	}
 
 	private static void listarEmpleados(EmpresaController controller) {
-
+		// Obtenemos todos los empleados
 		List<Empleado> empleados = controller.getEmpleados().stream()
                 .sorted(Comparator.comparing(Empleado::getNombre))
                 .collect(Collectors.toList());
-		
+		// Mostramos todos los empleados
 		String format = "[ %-36s ][ %-20s ][ %-8s ][ %-55s ]";
 		System.out.println(String.format(format, "ID", "NOMBRE", "SALARIO", "DEPARTAMENTO"));
         empleados.forEach(System.out::println);

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import db.HibernateManager;
 import jakarta.persistence.TypedQuery;
 import models.Departamento;
+import models.Empleado;
 
 public class DaoDepartamentoImpl implements DaoDepartamento{
 	private final Logger logger = Logger.getLogger(DaoDepartamentoImpl.class.getName());
@@ -21,9 +22,44 @@ public class DaoDepartamentoImpl implements DaoDepartamento{
         return list;
 	}
 
+	// TODO CONTROLAR QUE AL METER UN JEFE QUE FUESE JEFE DE OTRO DEPARTAMENTO SE ACTUALICE EN EL ANTIGUO
 	@Override
-	public Departamento save(Departamento entity) {
-		return null;
+	public Boolean save(Departamento entity) {
+		logger.info("save()");
+        HibernateManager hb = HibernateManager.getInstance();
+        hb.open();
+        hb.getTransaction().begin();
+        
+        try {
+            // Comprobamos si ha introducido un jefe el usuario
+            Empleado jefe = null;
+            if (entity.getJefe().getId() != null) {  // si se ha introducido jefe
+            	// Buscamos ese empleado en la base de datos
+                jefe = hb.getManager().find(Empleado.class, entity.getJefe().getId());
+            }
+
+            // Hacer merge del departamento (o persistir si es nuevo)
+            entity.setJefe(jefe);  // le asociamos el jefe completo
+            Departamento mergedDepartamento = hb.getManager().merge(entity);
+
+            // Actualizar el campo departamento del Empleado asociado si existe
+            if (mergedDepartamento.getJefe() != null) {
+                Empleado jefeActualizado = mergedDepartamento.getJefe();
+                jefeActualizado.setDepartamento(mergedDepartamento);
+                hb.getManager().merge(jefeActualizado);  // Merge del Empleado
+            }
+
+            hb.getTransaction().commit();
+            hb.close();
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (hb.getTransaction().isActive()) {
+                hb.getTransaction().rollback();
+            }
+        }
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class DaoEmpleadoImpl implements DaoEmpleado{
 	}
 
 	@Override
-	public Empleado save(Empleado entity) {
+	public Boolean save(Empleado entity) {
 		return null;
 	}
 

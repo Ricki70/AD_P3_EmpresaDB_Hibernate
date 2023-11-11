@@ -16,18 +16,18 @@ public interface DaoInterface<T> {
 	List<T> listar();
 	
 	/**
-	 * Método para insertar un registro en la tabla.
+	 * Método para guardar un registro en la tabla.
 	 * 
-	 * @param t registro que se quiere insertar
-	 * @return número de filas afectadas
+	 * @param t registro que se quiere guardar
+	 * @return true si se ha guardado correctamente, false en caso contrario
 	 */
-	T save(T entity);
+	Boolean save(T entity);
 	
 	/**
 	 * Método para eliminar un registro de la tabla.
 	 * 
 	 * @param t registro que se quiere eliminar
-	 * @return número de filas afectadas
+	 * @return true si se ha podido guardar, false en caso contrario
 	 */
 	Boolean delete(T entity);
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class EmpresaController {
+	// Logger para mostrar mensajes informativos
     private final Logger logger = Logger.getLogger(EmpresaController.class.getName());
 
     // Mis dependencias
@@ -20,21 +21,18 @@ public class EmpresaController {
         this.empleadoDao = empleadoDao;
     }
     
-    
-    
-    
  // ======================================| DEPARTAMENTO |======================================
     public List<Departamento> getDepartamentos() {
         logger.info("Obteniendo Departamento");
         return departamentoDao.listar();
     }
 
-    public Departamento createDepartamento(Departamento departamento) {
+    public Boolean createDepartamento(Departamento departamento) {
         logger.info("Creando Departamento");
         return departamentoDao.save(departamento);
     }
 
-    public Departamento updateDepartamento(Departamento departamento) {
+    public Boolean updateDepartamento(Departamento departamento) {
         logger.info("Actualizando Departamento con uuid: " + departamento.getId());
         return departamentoDao.save(departamento);
     }
@@ -51,12 +49,12 @@ public class EmpresaController {
         return empleadoDao.listar();
     }
 
-    public Empleado createEmpleado(Empleado empleado) {
+    public Boolean createEmpleado(Empleado empleado) {
         logger.info("Creando Empleados");
         return empleadoDao.save(empleado);
     }
 
-    public Empleado updateEmpleado(Empleado empleado) {
+    public Boolean updateEmpleado(Empleado empleado) {
         logger.info("Actualizando Empleados con uuid: " + empleado.getId());
         return empleadoDao.save(empleado);
     }
@@ -73,12 +71,12 @@ public class EmpresaController {
 //        return proyectoDao.listar();
 //    }
 //
-//    public Proyecto createRaqueta(Proyecto proyecto) {
+//    public Boolean createRaqueta(Proyecto proyecto) {
 //        logger.info("Creando Raqueta");
 //        return proyectoDao.save(proyecto);
 //    }
 //
-//    public Proyecto updateRaqueta(Proyecto proyecto) {
+//    public Boolean updateRaqueta(Proyecto proyecto) {
 //        logger.info("Actualizando Raqueta con uuid: " + proyecto.getId());
 //        return proyectoDao.save(proyecto);
 //    }
