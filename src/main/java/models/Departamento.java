@@ -14,10 +14,9 @@ import lombok.*;
 public class Departamento {
 	
 	@Id
-	private String id = UUID.randomUUID().toString();
+	private UUID id = UUID.randomUUID();
 	private String nombre;
 	
-	//TODO: Revisar que se puedan insertar jefes en la clase departamento, por algun motivo me da error de clave foranea
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "jefe", nullable = true)
 	private Empleado jefe;
@@ -29,10 +28,17 @@ public class Departamento {
 		setNombre(nombre);
 	}
 
-	public Departamento(Integer id, String nombre) {
+	public Departamento(UUID id, String nombre) {
+		setId(id);
 		setNombre(nombre);
 	}
 	
+	public Departamento(String nombre, Empleado jefe) {
+		setNombre(nombre);
+		setJefe(jefe);
+	}
+	
+	// TODO MOSTRAR LISTA DE EMPLEADOS ASOCIADOS A ESE DEPARTAMENTO
 	@Override
 	public String toString() {
 	    String format = "[ %-36s ][ %-20s ][ %-55s ]";

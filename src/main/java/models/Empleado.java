@@ -15,14 +15,14 @@ import lombok.*;
 @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM empleado e")
 @NamedQuery(name = "Empleado.findAllWithDepartamentoInfo", query = "SELECT e, d.id, d.nombre FROM empleado e LEFT JOIN e.departamento d")
 public class Empleado {
+	
 	@Id
-	private String id = UUID.randomUUID().toString();
+	private UUID id = UUID.randomUUID();
 	private String nombre;
 	private Double salario;
 	
 	@ManyToOne
 	@JoinColumn(name="departamento", nullable = true)
-	@OneToOne(mappedBy = "empleado")
 	private Departamento departamento;
 	
 	public Empleado(String nombre, Double salario, LocalDate nacido) {
@@ -30,8 +30,13 @@ public class Empleado {
 		setSalario(salario);
 	}
 	
-	public Empleado(Integer id, String nombre) {
+	public Empleado(UUID id, String nombre) {
+		setId(id);
 		setNombre(nombre);
+	}
+	
+	public Empleado(UUID id) {
+		setId(id);
 	}
 	
 	@Override
