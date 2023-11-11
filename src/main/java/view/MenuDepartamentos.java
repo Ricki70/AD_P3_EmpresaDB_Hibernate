@@ -44,10 +44,14 @@ public class MenuDepartamentos {
 
 	private static void listarDepartamentos(EmpresaController controller) {
 
+		
+		
 		// Obtenemos todos los tenistas
 		List<Departamento> departamentos = controller.getDepartamentos().stream()
                 .sorted(Comparator.comparing(Departamento::getNombre))
                 .collect(Collectors.toList());
+		String format = "[ %-36s ][ %-20s ][ %-55s ]";
+		System.out.println(String.format(format, "ID", "NOMBRE", "JEFE"));
         departamentos.forEach(System.out::println);
 	}
 
