@@ -7,6 +7,7 @@ import constantes.color.Colores;
 import controllers.EmpresaController;
 import dao.departamento.DaoDepartamentoImpl;
 import dao.empleado.DaoEmpleadoImpl;
+import dao.proyecto.DaoProyectoImpl;
 import db.HibernateManager;
 
 import java.util.logging.Logger;
@@ -18,7 +19,8 @@ public class MenuPrincipal {
 	 // Creamos nuestro controlador y le añadimos y le inyectamos las dependencias
     public static EmpresaController controller = new EmpresaController(
             new DaoDepartamentoImpl(),
-            new DaoEmpleadoImpl()
+            new DaoEmpleadoImpl(),
+            new DaoProyectoImpl()
     );
     
 	public static void main(String[] args) {	
@@ -44,7 +46,7 @@ public class MenuPrincipal {
 					MenuEmpleados.mostrarMenu(controller);
 					break;
 				case 3:  // salir del menú
-//					MenuProyectos.mostrarMenu();
+					MenuProyectos.mostrarMenu(controller);
 				case 4:  // salir del menú
 					System.exit(1);
 				default:

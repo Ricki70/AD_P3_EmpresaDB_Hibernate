@@ -24,6 +24,10 @@ public class Departamento {
 	@OneToMany(mappedBy = "departamento", orphanRemoval = false, cascade = CascadeType.ALL)
     private Set<Empleado> empleados = new HashSet<>();
 	
+	public Departamento(UUID id) {
+		setId(id);
+	}
+	
 	public Departamento(String nombre) {
 		setNombre(nombre);
 	}
@@ -34,6 +38,12 @@ public class Departamento {
 	}
 	
 	public Departamento(String nombre, Empleado jefe) {
+		setNombre(nombre);
+		setJefe(jefe);
+	}
+	
+	public Departamento(UUID id, String nombre, Empleado jefe) {
+		setId(id);
 		setNombre(nombre);
 		setJefe(jefe);
 	}

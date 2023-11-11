@@ -1,6 +1,5 @@
 package models;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 //import org.hibernate.annotations.UuidGenerator;
@@ -25,9 +24,10 @@ public class Empleado {
 	@JoinColumn(name="departamento", nullable = true)
 	private Departamento departamento;
 	
-	public Empleado(String nombre, Double salario, LocalDate nacido) {
+	public Empleado(String nombre, Double salario, Departamento departamento) {
 		setNombre(nombre);
 		setSalario(salario);
+		setDepartamento(departamento);
 	}
 	
 	public Empleado(UUID id, String nombre) {

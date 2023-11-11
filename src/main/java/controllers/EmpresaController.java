@@ -2,8 +2,10 @@ package controllers;
 
 import models.Departamento;
 import models.Empleado;
+import models.Proyecto;
 import dao.departamento.DaoDepartamento;
 import dao.empleado.DaoEmpleado;
+import dao.proyecto.DaoProyecto;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,10 +17,12 @@ public class EmpresaController {
     // Mis dependencias
     private final DaoDepartamento departamentoDao;
     private final DaoEmpleado empleadoDao;
+    private final DaoProyecto proyectoDao;
     
-    public EmpresaController(DaoDepartamento departamentoDao, DaoEmpleado empleadoDao) {
+    public EmpresaController(DaoDepartamento departamentoDao, DaoEmpleado empleadoDao, DaoProyecto proyectoDao) {
         this.departamentoDao = departamentoDao;
         this.empleadoDao = empleadoDao;
+        this.proyectoDao = proyectoDao;
     }
     
  // ======================================| DEPARTAMENTO |======================================
@@ -66,25 +70,25 @@ public class EmpresaController {
  // ==========================================================================================
 
  // ======================================| PROYECTO |======================================
-//    public List<Proyecto> getProyectos() {
-//        logger.info("Obteniendo Proyectos");
-//        return proyectoDao.listar();
-//    }
-//
-//    public Boolean createRaqueta(Proyecto proyecto) {
-//        logger.info("Creando Raqueta");
-//        return proyectoDao.save(proyecto);
-//    }
-//
-//    public Boolean updateRaqueta(Proyecto proyecto) {
-//        logger.info("Actualizando Raqueta con uuid: " + proyecto.getId());
-//        return proyectoDao.save(proyecto);
-//    }
-//
-//    public Boolean deleteRaqueta(Proyecto proyecto) {
-//        logger.info("Eliminando Raqueta con uuid: " + proyecto.getId());
-//        return proyectoDao.delete(proyecto);
-//    }
+    public List<Proyecto> getProyectos() {
+        logger.info("Obteniendo Proyectos");
+        return proyectoDao.listar();
+    }
+
+    public Boolean createProyecto(Proyecto proyecto) {
+        logger.info("Creando Raqueta");
+        return proyectoDao.save(proyecto);
+    }
+
+    public Boolean updateProyecto(Proyecto proyecto) {
+        logger.info("Actualizando Raqueta con uuid: " + proyecto.getId());
+        return proyectoDao.save(proyecto);
+    }
+
+    public Boolean deleteProyecto(Proyecto proyecto) {
+        logger.info("Eliminando Raqueta con uuid: " + proyecto.getId());
+        return proyectoDao.delete(proyecto);
+    }
 // ==========================================================================================
 
 }

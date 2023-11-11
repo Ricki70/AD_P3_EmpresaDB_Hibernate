@@ -2,11 +2,13 @@ package view;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import IO.IO;
 import constantes.color.Colores;
 import controllers.EmpresaController;
+import models.Departamento;
 import models.Empleado;
 
 public class MenuEmpleados {
@@ -29,13 +31,13 @@ public class MenuEmpleados {
 					listarEmpleados(controller);
 					break;
 				case 2:
-					insertEmpleado();
+					insertEmpleado(controller);
 					break;
 				case 3:
-					updateEmpleado();
+					updateEmpleado(controller);
 					break;
 				case 4:
-					deleteEmpleado();
+					deleteEmpleado(controller);
 					break;
 				case 5:
 					MenuPrincipal.main(null);
@@ -57,15 +59,52 @@ public class MenuEmpleados {
         empleados.forEach(System.out::println);
 	}
 
-	private static void insertEmpleado() {
+	private static void insertEmpleado(EmpresaController controller) {
+		// Obtenemos los datos del departamento que se quiere insertar
+				String nombre = IO.readString("Nombre ? ");
+				Double salario = IO.readDoubleOptional("Salario?: ");
+				UUID departamento = IO.readUUIDOptional("Departamento ? ");
 
+				// Creamos el departamento y lo insertamos
+				Empleado empleado = new Empleado(nombre, salario, new Departamento(departamento));
+						
+				// Comprobamos si se ha insertado el registro y damos feedback
+				IO.println(controller.createEmpleado(empleado) ? "Insertado correctamente" :
+						Colores.ROJO 
+						+ "No se ha encontrado un empleado con el ID introducido" 
+						+ Colores.RESET);
 	}
 
-	private static void updateEmpleado() {
+	private static void updateEmpleado(EmpresaController controller) {
+		// Obtenemos los datos del departamento que se quiere modificar
+		IO.print("ID ? ");
+		UUID id = IO.readUUID();
+		IO.print("Nombre ? ");
+		String nombre = IO.readStringOptional();
+		IO.print("Salario ? ");
+		Double salario = IO.readDoubleOptional();
+		IO.print("Departamento ? ");
+		UUID departamento = IO.readUUIDOptional();
 
+		// Creamos el departamento y lo modificamos
+		Empleado empleado = new Empleado(id, nombre, salario, new Departamento(departamento));
+		IO.println(controller.updateEmpleado(empleado) ? "Actualizado correctamente"
+				: Colores.ROJO 
+				+ "\nRegistro no encontrado o Información no válida\n" 
+				+ "Asegúrese de:\n"
+				+ "- Haber rellenado al menos 1 campo\n"
+				+ "- Que el ID del empleado a modificar exista en la tabla empleado\n"
+				+ "- Que el ID del departamento exista en la tabla departamento" 
+				+ Colores.RESET);
 	}
 
-	private static void deleteEmpleado() {
-
+	private static void deleteEmpleado(EmpresaController controller) {
+		UUID id = IO.readUUID("ID:  ? ");
+		Empleado empleado = new Empleado(id);
+		
+		IO.println(controller.deleteEmpleado(empleado) ? "Eliminado correctamente" :
+			Colores.ROJO 
+			+ "No se ha encontrado un Empleado con el ID introducido" 
+			+ Colores.RESET);
 	}
 }

@@ -30,10 +30,10 @@ public class MenuDepartamentos {
 				insertDepartamento(controller);
 				break;
 			case 3:
-				updateDepartamento();
+				updateDepartamento(controller);
 				break;
 			case 4:
-				deleteDepartamento();
+				deleteDepartamento(controller);
 				break;
 			case 5:
 				MenuPrincipal.main(null);
@@ -80,9 +80,34 @@ public class MenuDepartamentos {
 				+ Colores.RESET);
 	}
 
-	private static void updateDepartamento() {
+	private static void updateDepartamento(EmpresaController controller) {
+		// Obtenemos los datos del departamento que se quiere modificar
+				IO.print("ID ? ");
+				UUID id = IO.readUUID();
+				IO.print("Nombre ? ");
+				String nombre = IO.readStringOptional();
+				IO.print("Jefe ? ");
+				UUID jefe = IO.readUUIDOptional();
+
+				// Creamos el departamento y lo modificamos
+				Departamento departamento = new Departamento(id, nombre, new Empleado(jefe));
+				IO.println(controller.updateDepartamento(departamento) ? "Actualizado correctamente"
+						: Colores.ROJO 
+						+ "\nRegistro no encontrado o Información no válida\n" 
+						+ "Asegúrese de:\n"
+						+ "- Haber rellenado al menos 1 campo\n"
+						+ "- Que el ID del departamento a modificar exista en la tabla departamento\n"
+						+ "- Que el ID del jefe exista en la tabla empleado" 
+						+ Colores.RESET);
 	}
 
-	private static void deleteDepartamento() {
+	private static void deleteDepartamento(EmpresaController controller) {
+		UUID jefe = IO.readUUID("ID Departamento ? ");
+		Departamento departamento = new Departamento(jefe);
+		
+		IO.println(controller.deleteDepartamento(departamento) ? "Eliminado correctamente" :
+			Colores.ROJO 
+			+ "No se ha encontrado un Departamento con el ID introducido" 
+			+ Colores.RESET);
 	}
 }

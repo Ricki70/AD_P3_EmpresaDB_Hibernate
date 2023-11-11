@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import db.HibernateManager;
+import exceptions.DepartamentoException;
 import jakarta.persistence.TypedQuery;
 import models.Departamento;
 import models.Empleado;
@@ -64,7 +65,24 @@ public class DaoDepartamentoImpl implements DaoDepartamento{
 
 	@Override
 	public Boolean delete(Departamento entity) {
-		return null;
+		logger.info("delete()");
+        HibernateManager hb = HibernateManager.getInstance();
+        hb.open();
+        try {
+            hb.getTransaction().begin();
+            // Ojo que borrar implica que estemos en la misma sesión y nos puede dar problemas, por eso lo recuperamos otra vez
+            entity = hb.getManager().find(Departamento.class, entity.getId());
+            hb.getManager().remove(entity);
+            hb.getTransaction().commit();
+            hb.close();
+            return true;
+        } catch (Exception e) {
+            throw new DepartamentoException("Error al eliminar tenista con uuid: " + entity.getId() + " - " + e.getMessage());
+        } finally {
+            if (hb.getTransaction().isActive()) {
+                hb.getTransaction().rollback();
+            }
+        }
 	}
 
 }
