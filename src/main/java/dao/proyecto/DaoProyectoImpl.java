@@ -1,12 +1,15 @@
 package dao.proyecto;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import db.HibernateManager;
 import exceptions.DepartamentoException;
 import exceptions.ProyectoException;
 import jakarta.persistence.TypedQuery;
+import models.Departamento;
 import models.Proyecto;
 
 public class DaoProyectoImpl implements DaoProyecto{

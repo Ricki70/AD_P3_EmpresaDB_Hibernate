@@ -5,11 +5,9 @@ import java.util.logging.Logger;
 
 import dao.departamento.DaoDepartamentoImpl;
 import db.HibernateManager;
-import exceptions.DepartamentoException;
 import exceptions.EmpleadoException;
 import jakarta.persistence.TypedQuery;
 import models.Empleado;
-import models.Proyecto;
 
 public class DaoEmpleadoImpl implements DaoEmpleado{
 	private final Logger logger = Logger.getLogger(DaoDepartamentoImpl.class.getName());

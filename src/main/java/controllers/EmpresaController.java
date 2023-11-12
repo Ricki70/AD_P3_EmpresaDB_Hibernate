@@ -25,7 +25,7 @@ public class EmpresaController {
         this.proyectoDao = proyectoDao;
     }
     
- // ======================================| DEPARTAMENTO |======================================
+ // ======================================| DEPARTAMENTO |====================================== 
     public List<Departamento> getDepartamentos() {
         logger.info("Obteniendo Departamento");
         return departamentoDao.listar();
@@ -47,7 +47,7 @@ public class EmpresaController {
     }
     // ==========================================================================================
 
-    // ======================================| EMPLEADO |======================================
+    // ======================================| EMPLEADO |======================================   
     public List<Empleado> getEmpleados() {
         logger.info("Obteniendo Empleados");
         return empleadoDao.listar();

@@ -63,6 +63,7 @@ public class DaoDepartamentoImpl implements DaoDepartamento{
         }
 	}
 
+
 	@Override
 	public Boolean delete(Departamento entity) {
 		logger.info("delete()");
@@ -86,3 +87,23 @@ public class DaoDepartamentoImpl implements DaoDepartamento{
 	}
 
 }
+
+
+
+// Comprobamos si ha introducido un jefe el usuario
+//Empleado jefe = null;
+//if (entity.getJefe().getId() != null) {  // si se ha introducido jefe
+//	// Buscamos ese empleado en la base de datos
+//  jefe = hb.getManager().find(Empleado.class, entity.getJefe().getId());
+//}
+
+// Hacer merge del departamento (o persistir si es nuevo)
+//entity.setJefe(jefe);  // le asociamos el jefe completo
+//Departamento mergedDepartamento = hb.getManager().merge(entity);
+
+// Actualizar el campo departamento del Empleado asociado si existe
+//if (mergedDepartamento.getJefe() != null) {
+//  Empleado jefeActualizado = mergedDepartamento.getJefe();
+//  jefeActualizado.setDepartamento(mergedDepartamento);
+//  hb.getManager().merge(jefeActualizado);  // Merge del Empleado
+//}
